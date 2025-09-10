@@ -1,0 +1,41 @@
+<h2 class="text-3xl font-semibold mb-6">All Tasks</h2>
+
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <% tasks.forEach(task => { %>
+    <div class="bg-zinc-800 p-5 rounded-2xl shadow hover:shadow-lg transition">
+      <h3 class="text-xl font-bold <%= task.status === 'done' ? 'line-through text-gray-400' : '' %>">
+        <%= task.title %>
+      </h3>
+      <p class="text-sm text-gray-300 mt-2"><%= task.description || "No description" %></p>
+      
+      <div class="mt-4 flex justify-between items-center text-sm">
+        <span class="px-2 py-1 rounded 
+          <%= task.status === 'pending' ? 'bg-yellow-500/20 text-yellow-400' : 
+              task.status === 'in-progress' ? 'bg-blue-500/20 text-blue-400' : 
+              'bg-green-500/20 text-green-400' %>">
+          <%= task.status %>
+        </span>
+        <span class="text-gray-400">Priority: <%= task.priority %></span>
+      </div>
+
+      <% if (task.dueDate) { %>
+        <p class="text-xs text-gray-400 mt-2">Due: <%= task.dueDate.toDateString() %></p>
+      <% } %>
+
+      <div class="flex justify-between mt-4">
+        <a href="/tasks/edit/<%= task._id %>" 
+           class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1 rounded text-sm">Edit</a>
+        <form action="/tasks/delete/<%= task._id %>" method="POST">
+          <button type="submit" 
+            class="bg-red-600 hover:bg-red-500 px-3 py-1 rounded text-sm">
+            Delete
+          </button>
+        </form>
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+<% if (tasks.length === 0) { %>
+  <p class="text-gray-400 text-center mt-10">No tasks yet. <a href="/tasks/add" class="text-indigo-400">Add one!</a></p>
+<% } %>

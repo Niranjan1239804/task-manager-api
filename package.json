@@ -12,8 +12,10 @@
   "description": "",
   "dependencies": {
     "dotenv": "^17.2.2",
+    "ejs": "^3.1.10",
     "expree": "^2.1.0",
     "express": "^4.21.2",
+    "express-ejs-layouts": "^2.5.1",
     "mongoose": "^8.18.0"
   },
   "devDependencies": {
